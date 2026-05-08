@@ -22,6 +22,10 @@ def add_habit_to_category_route():
 def get_habit_by_id_route(habit_id):
     return controllers.get_habit_by_id(habit_id)
 
+@habit_blueprint.route("/habits/<uuid:category_id>", methods = ['GET'])
+def get_habits_by_category_route(category_id):
+    return controllers.get_habits_by_category(category_id)
+
 
 @habit_blueprint.route('/habit/<habit_id>', methods=['PUT'])
 def update_habit_by_id_route(habit_id):

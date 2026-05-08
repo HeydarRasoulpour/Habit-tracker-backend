@@ -1,5 +1,9 @@
 from flask import Flask
+
+from flask_cors import CORS
 import os
+import models.cloudinary_config
+
 
 from db import *
 from util.blueprints import register_blueprint
@@ -15,6 +19,14 @@ database_name = os.environ.get("DATABASE_NAME")
 
 app = Flask(__name__)
 
+
+CORS(
+    app,
+    resources={r"/*": {"origins": "http://localhost:5173"}},
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+)
 register_blueprint(app)
 
 
