@@ -16,6 +16,7 @@ database_user = os.environ.get("DATABASE_USER")
 database_address = os.environ.get("DATABASE_ADDRESS")
 database_port = os.environ.get("DATABASE_PORT")
 database_name = os.environ.get("DATABASE_NAME")
+database__url = os.environ.get("DATABASE_URL")
 
 app = Flask(__name__)
 
