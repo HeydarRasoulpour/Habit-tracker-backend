@@ -31,7 +31,7 @@ CORS(
 register_blueprint(app)
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f"{database_scheme}{database_user}@{database_address}:{database_port}/{database_name}"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 init_db(app, db)
@@ -46,7 +46,9 @@ def create_tables():
 
 
 if __name__ == '__main__':
-    create_tables()
-    # app.run(host=flask_host, port=flask_port)
+    # create_tables()
     port = int(os.environ.get("PORT", 5000)) 
+    with app.app_context():
+        create_tables()
+    # app.run(host=flask_host, port=flask_port)
     app.run(host="0.0.0.0", port=port)
