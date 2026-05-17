@@ -11,11 +11,11 @@ from util.blueprints import register_blueprint
 flask_host = os.environ.get("FLASK_HOST")
 flask_port = os.environ.get("FLASK_PORT")
 
-database_scheme = os.environ.get("DATABASE_SCHEME")
-database_user = os.environ.get("DATABASE_USER")
-database_address = os.environ.get("DATABASE_ADDRESS")
-database_port = os.environ.get("DATABASE_PORT")
-database_name = os.environ.get("DATABASE_NAME")
+# database_scheme = os.environ.get("DATABASE_SCHEME")
+# database_user = os.environ.get("DATABASE_USER")
+# database_address = os.environ.get("DATABASE_ADDRESS")
+# database_port = os.environ.get("DATABASE_PORT")
+# database_name = os.environ.get("DATABASE_NAME")
 database__url = os.environ.get("DATABASE_URL")
 
 app = Flask(__name__)
@@ -30,8 +30,8 @@ CORS(
 )
 register_blueprint(app)
 
-
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+# app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 init_db(app, db)
