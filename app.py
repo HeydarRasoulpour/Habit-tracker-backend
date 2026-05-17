@@ -8,29 +8,40 @@ import models.cloudinary_config
 from db import *
 from util.blueprints import register_blueprint
 
-flask_host = os.environ.get("FLASK_HOST")
-flask_port = os.environ.get("FLASK_PORT")
+# flask_host = os.environ.get("FLASK_HOST")
+# flask_port = os.environ.get("FLASK_PORT")
 
 # database_scheme = os.environ.get("DATABASE_SCHEME")
 # database_user = os.environ.get("DATABASE_USER")
 # database_address = os.environ.get("DATABASE_ADDRESS")
 # database_port = os.environ.get("DATABASE_PORT")
 # database_name = os.environ.get("DATABASE_NAME")
-database__url = os.environ.get("DATABASE_URL")
 
 app = Flask(__name__)
+CORS(app)
 
-
-CORS(
-    app,
-    resources={r"/*": {"origins": "http://localhost:5173"}},
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"],
-    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-)
 register_blueprint(app)
+database_url = os.environ.get("DATABASE_URL")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace(
+        "postgres://",
+        "postgresql://",
+        1
+    )
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url + "?sslmode=require"
+
+
+# CORS(
+#     app,
+#     resources={r"/*": {"origins": "http://localhost:5173"}},
+#     supports_credentials=True,
+#     allow_headers=["Content-Type", "Authorization"],
+#     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+# )
+
+# app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 # app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
