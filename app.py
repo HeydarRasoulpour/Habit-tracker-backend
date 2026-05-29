@@ -30,9 +30,8 @@ if database_url.startswith("postgres://"):
         1
     )
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = database_url + "?sslmode=require"
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url + "?sslmode=require"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # CORS(
 #     app,
