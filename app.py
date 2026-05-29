@@ -18,7 +18,16 @@ from util.blueprints import register_blueprint
 # database_name = os.environ.get("DATABASE_NAME")
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
+CORS(
+    app,
+    resources={r"/*": {
+        "origins": [
+            "https://habit-tracker-front-jh.onrender.com"
+        ]
+    }},
+    supports_credentials=True
+)
 
 register_blueprint(app)
 database_url = os.environ.get("DATABASE_URL")
