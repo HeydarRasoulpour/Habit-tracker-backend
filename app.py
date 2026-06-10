@@ -60,6 +60,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 init_db(app, db)
 
+print("DATABASE_URL RAW:", os.environ.get("DATABASE_URL"))
 
 
 def create_tables():
